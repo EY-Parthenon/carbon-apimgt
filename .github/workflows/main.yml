@@ -171,3 +171,14 @@ jobs:
           path: product-apim
       - name: Build product-apim with tests
         run: mvn clean install -Dcarbon.apimgt.version=$(cat ../CARBON_APIMGT_VERSION_FILE) -fae --file product-apim/pom.xml -DskipIntegrationTests
+  scc_job:
+    runs-on: ubuntu-latest
+    name: A job to count the lines of code.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Get the lines of code.
+        id: scc
+        uses: iryanbell/scc-docker-action@v1.0.2
+        with:
+          args: ${{ env.workspace }}
